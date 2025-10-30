@@ -207,15 +207,15 @@ marimo/_lsp/
 __marimo__/
 
 # Data files
-*.csv
-*.npz
-*.npy
+# *.csv
+# *.npz
+# *.npy
 
 # Models (ignore large model/data files)
-models/
-data/
-*.pkl
-*.index
+# models/
+# data/
+# *.pkl
+# *.index
 
 # IDE/editor
 .vscode/
