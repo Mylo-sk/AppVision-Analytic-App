@@ -55,7 +55,7 @@ def load_classifier_model():
     """
     try:
         # IMPORTANT: Update this path to your actual model file
-        model_path = "models\\xgboost_model.pkl"
+        model_path = "models//xgboost_model.pkl"
         model = joblib.load(model_path)
         return model
     except Exception as e:

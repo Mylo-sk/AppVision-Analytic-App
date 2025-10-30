@@ -52,7 +52,7 @@ def load_regressor_model():
     """
     try:
         # IMPORTANT: Update this path to your actual model file
-        model_path = "models\gstore_rfr_model.pkl"
+        model_path = "models/gstore_rfr_model.pkl"
         model = joblib.load(model_path)
         return model
     except Exception as e:
