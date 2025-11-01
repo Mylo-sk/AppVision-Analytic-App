@@ -348,53 +348,29 @@ def load_css():
        SLIDER STYLING
        ======================================================================== */
     
-    /* SLIDER STYLING */
-    .stSlider [role="slider"] {{
-        -webkit-appearance: none;
-        appearance: none;
-        width: 100%;
-        height: 8px;
+    .stSlider > div > div > div {{
         background: linear-gradient(90deg, var(--secondary), var(--accent)) !important;
-        border-radius: 4px;
-        outline: none;
-        cursor: pointer;
+        height: 8px !important;
+        border-radius: 4px !important;
     }}
-
-    /* Thumb - Webkit browsers (Chrome, Safari) */
-    .stSlider [role="slider"]::-webkit-slider-thumb {{
-        -webkit-appearance: none;
-        appearance: none;
-        width: 24px;
-        height: 24px;
+    
+    .stSlider > div > div > div > div {{
         background: white !important;
+        width: 24px !important;
+        height: 24px !important;
         border-radius: 50% !important;
-        cursor: pointer;
         box-shadow: 0 2px 8px rgba(0,0,0,0.4), 0 0 0 4px var(--secondary) !important;
         transition: var(--transition) !important;
     }}
-
-    .stSlider [role="slider"]::-webkit-slider-thumb:hover {{
+    
+    .stSlider > div > div > div > div:active {{
+        cursor: grabbing !important;
+    }}
+    
+    .stSlider > div > div > div > div:hover {{
         transform: scale(1.2) !important;
         box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 0 6px var(--accent) !important;
     }}
-
-    /* Thumb - Firefox */
-    .stSlider [role="slider"]::-moz-range-thumb {{
-        width: 24px;
-        height: 24px;
-        background: white !important;
-        border-radius: 50% !important;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.4), 0 0 0 4px var(--secondary) !important;
-        transition: var(--transition) !important;
-    }}
-
-    .stSlider [role="slider"]::-moz-range-thumb:hover {{
-        transform: scale(1.2) !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 0 6px var(--accent) !important;
-    }}
-
     
     /* ========================================================================
        RADIO BUTTONS
