@@ -378,7 +378,7 @@ else:  # Feature-Based Mode
             
             # Rating Quality
             config = CLASSIFIER_FEATURES['Rating_Quality_Score']
-            rating = st.slider(
+            rating = st.number_input(
                 f"{config['icon']} {config['display_name']}",
                 min_value=config['min'],
                 max_value=config['max'],
@@ -431,7 +431,7 @@ else:  # Feature-Based Mode
             
             # Size
             config = CLASSIFIER_FEATURES['Size_MB']
-            size = st.slider(
+            size = st.number_input(
                 f"{config['icon']} {config['display_name']}",
                 min_value=config['min'],
                 max_value=config['max'],
@@ -462,7 +462,7 @@ else:  # Feature-Based Mode
     col1, col2 = st.columns(2)
     
     with col1:
-        n_recommendations = st.slider(
+        n_recommendations = st.number_input(
             "Number of Recommendations",
             min_value=3,
             max_value=15,
@@ -472,7 +472,7 @@ else:  # Feature-Based Mode
         )
     
     with col2:
-        min_rating = st.slider(
+        min_rating = st.number_input(
             "Minimum Rating Filter",
             min_value=1.0,
             max_value=5.0,
