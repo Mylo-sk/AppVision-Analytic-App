@@ -349,7 +349,7 @@ def load_css():
        ======================================================================== */
     
     /* SLIDER STYLING */
-    .stSlider [role="slider"] {
+    .stSlider [role="slider"] {{
         -webkit-appearance: none;
         appearance: none;
         width: 100%;
@@ -358,10 +358,10 @@ def load_css():
         border-radius: 4px;
         outline: none;
         cursor: pointer;
-    }
+    }}
 
     /* Thumb - Webkit browsers (Chrome, Safari) */
-    .stSlider [role="slider"]::-webkit-slider-thumb {
+    .stSlider [role="slider"]::-webkit-slider-thumb {{
         -webkit-appearance: none;
         appearance: none;
         width: 24px;
@@ -371,15 +371,15 @@ def load_css():
         cursor: pointer;
         box-shadow: 0 2px 8px rgba(0,0,0,0.4), 0 0 0 4px var(--secondary) !important;
         transition: var(--transition) !important;
-    }
+    }}
 
-    .stSlider [role="slider"]::-webkit-slider-thumb:hover {
+    .stSlider [role="slider"]::-webkit-slider-thumb:hover {{
         transform: scale(1.2) !important;
         box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 0 6px var(--accent) !important;
-    }
+    }}
 
     /* Thumb - Firefox */
-    .stSlider [role="slider"]::-moz-range-thumb {
+    .stSlider [role="slider"]::-moz-range-thumb {{
         width: 24px;
         height: 24px;
         background: white !important;
@@ -388,12 +388,12 @@ def load_css():
         cursor: pointer;
         box-shadow: 0 2px 8px rgba(0,0,0,0.4), 0 0 0 4px var(--secondary) !important;
         transition: var(--transition) !important;
-    }
+    }}
 
-    .stSlider [role="slider"]::-moz-range-thumb:hover {
+    .stSlider [role="slider"]::-moz-range-thumb:hover {{
         transform: scale(1.2) !important;
         box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 0 6px var(--accent) !important;
-    }
+    }}
 
     
     /* ========================================================================
