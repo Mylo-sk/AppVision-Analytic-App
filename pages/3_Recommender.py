@@ -178,7 +178,8 @@ def recommend_apps_faiss(form_data, recommender_system, n=5, min_rating=3.5):
         recommendations = recommendations.head(n)
         
         # Add similarity scores
-        recommendations['Similarity'] = D[0][:len(recommendations)]
+        distances = D[0][:len(recommendations)]
+        recommendations['Similarity'] = np.maximum(0, 1 - distances / 2)
         
         return recommendations[['App_Name', 'Category', 'Rating', 'Rating_Count', 
                                'Installs_Central', 'Size_MB', 'Free', 'Ad_Supported', 
@@ -230,7 +231,8 @@ def search_similar_apps(app_name, recommender_system, n=5):
         
         # Get recommendations
         recommendations = dataset.iloc[similar_indices].copy()
-        recommendations['Similarity'] = D[0][1:len(recommendations)+1]
+        distances = D[0][1:len(recommendations)+1]
+        recommendations['Similarity'] = np.maximum(0, 1 - distances / 2)
         
         return recommendations[['App_Name', 'Category', 'Rating', 'Rating_Count', 
                                'Installs_Central', 'Size_MB', 'Similarity']], None
