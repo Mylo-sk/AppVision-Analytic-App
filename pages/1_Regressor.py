@@ -192,7 +192,7 @@ with st.container():
         
         # App Size
         config = REGRESSION_FEATURES['Size_MB']
-        size = st.slider(
+        size = st.number_input(
             f"{config['icon']} {config['display_name']}",
             min_value=config['min'],
             max_value=config['max'],
