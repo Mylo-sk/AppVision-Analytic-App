@@ -1,22 +1,11 @@
-# requirements.txt
-# AppVision Analytics - Python Dependencies
+# AppVision Analytics v2: what the Streamlit app needs to run
+streamlit>=1.50
+pandas>=2.2
+numpy>=2.0
+scipy>=1.13
+scikit-learn>=1.7
+xgboost>=3.0
+pyarrow>=21
+plotly>=6.0
 
-# Core Framework
-streamlit>=1.28.0
-
-# Data Processing
-pandas>=2.0.0
-numpy>=1.24.0
-
-# Machine Learning
-scikit-learn>=1.3.0
-xgboost>=2.0.0
-joblib>=1.3.0
-faiss-cpu>=1.11.0
-
-# Visualization (optional, for future charts)
-plotly>=5.17.0
-matplotlib>=3.7.0
-
-# Utilities
-python-dateutil>=2.8.2
+# The notebooks additionally use: matplotlib, seaborn, jupyter (nbclient/ipykernel)

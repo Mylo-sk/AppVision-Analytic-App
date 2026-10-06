@@ -1,414 +1,116 @@
-# 📱 AppVision Analytics - Complete Web Application
+# AppVision Analytics · Launch Readiness
 
-> **Predict mobile app performance with data-driven insights**
+**Honest launch odds for Android app ideas, built on 2.3 million Google Play apps.**
 
-A beautiful, production-ready Streamlit web application for predicting app install success, classifying app performance tiers, and discovering similar successful competitors.
+Most apps never reach 1,000 installs. AppVision tells a studio, before it builds anything, what happened to real apps set up like its idea, in numbers anyone can read ("28 out of 100 apps like this passed 10,000 installs"). It also shows what the apps that broke out in that niche had in common.
 
-## 🎯 Features
-
-### 1. **📊 Install Value Prediction (Regressor)**
-- Predict the exact number of app installs
-- 75.2% R² accuracy with Random Forest model
-- Real-time input validation and feedback
-- Personalized recommendations based on your app profile
-- Feature importance visualization
-
-### 2. **🎯 Install Tier Classification (Classifier)**
-- Classify apps into 4 performance tiers:
-  - 🔹 Low Performance (0-10K installs)
-  - 🟡 Emerging (10K-100K installs)
-  - 🟢 Popular (100K-1M installs)
-  - 🔥 Viral (1M+ installs)
-- 96.5% classification accuracy with XGBoost
-- Tier-specific growth strategies
-- Confidence visualization with probabilities
-- Growth roadmap to next tier
-
-### 3. **💡 Competitive App Recommender**
-- Find similar successful apps
-- Benchmark against competitors
-- Learn from top performers
-- Content-based similarity matching
-- Actionable insights and strategies
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Python 3.8+
-- pip or conda package manager
-
-### Installation
-
-1. **Clone or download the project**
-```bash
-cd appvision_predictor
-```
-
-2. **Create virtual environment**
-```bash
-python -m venv venv
-
-# Windows
-venv\Scripts\activate
-
-# Mac/Linux
-source venv/bin/activate
-```
-
-3. **Install dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Add your models**
-Place your trained models in the `models/` directory:
-```
-models/
-├── regressor_model.pkl      # Random Forest regressor
-├── classifier_model.pkl     # XGBoost classifier
-└── recommender_model.pkl    # Recommendation system
-```
-
-5. **Run the app**
-```bash
-streamlit run app.py
-```
-
-The app will open at `http://localhost:8501`
-
-## 📁 Project Structure
-
-```
-appvision_predictor/
-│
-├── app.py                          # Main home page
-├── requirements.txt                # Python dependencies
-├── README.md                       # This file
-├── SETUP-GUIDE.md                  # Detailed setup instructions
-│
-├── pages/
-│   ├── 1_📊_Regressor.py          # Install value prediction
-│   ├── 2_🎯_Classifier.py         # Install tier classification
-│   └── 3_💡_Recommender.py        # Recommendation system
-│
-├── models/
-│   ├── regressor_model.pkl
-│   ├── classifier_model.pkl
-│   └── recommender_model.pkl
-│
-└── utils/
-    ├── __init__.py
-    ├── config.py                   # Configuration & constants
-    ├── styling.py                  # CSS & UI design
-    └── helpers.py                  # Helper functions
-```
-
-## 🎨 Design Features
-
-### Dark Modern Theme
-- Professional navy/blue color palette
-- Smooth animations and transitions
-- Responsive layout for all screen sizes
-- Accessible typography with Inter font
-
-### Interactive Components
-- Real-time input validation
-- Contextual feedback messages
-- Interactive charts with Plotly
-- Progress indicators
-- Status badges
-
-### Mobile Friendly
-- Optimized for mobile and desktop
-- Touch-friendly buttons and controls
-- Responsive column layouts
-
-## 📊 Input Features
-
-### Core Features (Used by All Models)
-
-| Feature | Type | Range | Importance |
-|---------|------|-------|-----------|
-| Rating Quality Score | Slider | 1.0 - 5.0 | 15.0% |
-| Rating Count | Number | 0 - 10M | 38.3% |
-| App Age Days | Number | 1 - 3650 | 5.4% |
-| Size MB | Slider | 1.0 - 500.0 | 3.8% |
-| Category | Dropdown | 48 options | 2.0% |
-| Free | Radio | Yes/No | 1.5% |
-| Ad Supported | Radio | Yes/No | 1.0% |
-| In-App Purchases | Radio | Yes/No | 1.0% |
-| Editors Choice | Radio | Yes/No | 0.5% |
-
-**Calculated Features:**
-- Rating Density = Rating Count / App Age Days (47.5% importance)
-
-## 🔧 Customization
-
-### Update Model Paths
-Edit the model loading functions in each page:
-
-```python
-# In 1_📊_Regressor.py (line ~50)
-model_path = "models/your_regressor_model.pkl"
-
-# In 2_🎯_Classifier.py (line ~50)
-model_path = "models/your_classifier_model.pkl"
-
-# In 3_💡_Recommender.py (line ~50)
-recommender_path = "models/your_recommender_model.pkl"
-```
-
-### Modify Color Scheme
-Edit `utils/config.py`:
-
-```python
-COLORS = {
-    "primary": "#1E3A8A",      # Your primary color
-    "secondary": "#3B82F6",    # Your secondary color
-    "accent": "#10B981",       # Your accent color
-    # ... more colors
-}
-```
-
-### Update Model Metrics
-Edit `utils/config.py` in `MODEL_METRICS` dictionary:
-
-```python
-MODEL_METRICS = {
-    "regressor": {
-        "r2_score": 0.752,     # Your model's R² score
-        "rmse": 0.234,         # Your RMSE
-        "mae": 0.189,          # Your MAE
-        "accuracy": "75.2%"
-    },
-    # ... more metrics
-}
-```
-
-### Add/Remove Features
-Edit `REGRESSION_FEATURES` in `utils/config.py` to customize which features are shown.
-
-## 🤖 Model Requirements
-
-Your models should accept pandas DataFrames with these columns:
-
-### Input Format
-```python
-{
-    'Rating_Count': int,
-    'Size_MB': float,
-    'Rating_Density': float,
-    'Ad_Supported': int (0 or 1),
-    'Price_USD': float,
-    'Rating_Quality_Score': float (1-5),
-    'In_App_Purchases': int (0 or 1),
-    'Editors_Choice': int (0 or 1),
-    'Category': str,
-    'App_Age_Days': int,
-    'Free': int (0 or 1)
-}
-```
-
-### Output Format
-
-**Regressor:**
-```python
-prediction: float  # Predicted install count
-```
-
-**Classifier:**
-```python
-prediction: int    # Predicted tier (0, 1, 2, or 3)
-probabilities: array  # Optional - confidence for each class
-```
-
-## 📝 Usage Guide
-
-### Regressor Page (📊)
-1. Enter your app's rating quality score
-2. Specify number of user ratings
-3. Select app category and monetization strategy
-4. Click "Predict App Installs"
-5. Review predicted install count and recommendations
-
-### Classifier Page (🎯)
-1. Enter same app details as regressor
-2. Click "Classify App Tier"
-3. View tier classification and confidence scores
-4. Review tier-specific growth strategies
-5. Check progress roadmap to next tier
-
-### Recommender Page (💡)
-1. Describe your app's features
-2. Adjust recommendation settings
-3. Click "Find Similar Apps"
-4. Compare with top performers
-5. View action plan to improve your app
-
-## 🐛 Troubleshooting
-
-### Issue: "Module not found" error
-**Solution:**
-```bash
-# Verify you're in the project root
-cd appvision_predictor
-
-# Clear cache and reinstall
-pip install --force-reinstall -r requirements.txt
-```
-
-### Issue: Model file not found
-**Solution:**
-1. Verify model files exist in `models/` directory
-2. Check file names match exactly in code
-3. Ensure proper file permissions
-
-### Issue: CSS not loading
-**Solution:**
-```bash
-# Clear Streamlit cache
-streamlit cache clear
-
-# Restart app
-streamlit run app.py
-
-# Hard refresh browser (Ctrl+Shift+R or Cmd+Shift+R)
-```
-
-### Issue: Page navigation not working
-**Solution:**
-Verify folder structure:
-```
-pages/
-├── 1_📊_Regressor.py
-├── 2_🎯_Classifier.py
-└── 3_💡_Recommender.py
-```
-
-The emoji prefix and underscore are important!
-
-## 📊 Data Science Background
-
-Models were trained on **2 million+ apps** from Google Play Store with:
-- **Regression Model**: Random Forest
-  - 75.2% R² Score
-  - Predicts install count (0-10B range)
-  
-- **Classification Model**: XGBoost
-  - 96.5% Accuracy
-  - 4-class install tier prediction
-  
-- **Recommender System**: Content-Based
-  - 85% Precision@10
-  - Similar app discovery
-
-## 🔐 Privacy & Data
-
-- All predictions run locally on your machine
-- No data sent to external servers
-- Session-based data (cleared on browser close)
-- No user tracking or analytics
-
-## 🚀 Deployment
-
-### Deploy to Streamlit Cloud
-```bash
-# Install Streamlit CLI
-pip install streamlit
-
-# Create account at https://streamlit.io
-# Connect GitHub repo
-# Select branch and main file (app.py)
-```
-
-### Deploy to Heroku
-```bash
-# Create Heroku app
-heroku create your-app-name
-
-# Deploy
-git push heroku main
-```
-
-### Deploy Locally with Docker
-```dockerfile
-FROM python:3.10-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-CMD ["streamlit", "run", "app.py"]
-```
-
-## 📈 Performance Tips
-
-1. **Cache Models**: Models are cached using `@st.cache_resource`
-2. **Optimize Predictions**: Pre-process features for faster inference
-3. **Limit History**: Clear old sessions to save memory
-4. **Use CDN**: For production deployments
-
-## 🛠️ Development
-
-### Adding New Features
-1. Update `utils/config.py` with new feature definitions
-2. Add input widget in relevant page
-3. Update helper functions if needed
-4. Test with sample data
-
-### Updating Styling
-Edit CSS in `utils/styling.py`:
-- Modify color variables in `:root`
-- Update component styles
-- Test across devices
-
-## 📚 Dependencies
-
-- **streamlit** (1.28.0+) - Web framework
-- **pandas** (2.0.0+) - Data processing
-- **numpy** (1.24.0+) - Numerical computing
-- **scikit-learn** (1.3.0+) - ML algorithms
-- **xgboost** (2.0.0+) - Gradient boosting
-- **joblib** (1.3.0+) - Model serialization
-- **plotly** (5.17.0+) - Interactive charts
-
-## 🤝 Contributing
-
-Contributions welcome! Please:
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- Built with [Streamlit](https://streamlit.io)
-- ML models trained on [Google Play Store Data](https://www.kaggle.com/datasets/lava18/google-play-store-apps)
-- Inspired by mobile app development best practices
-
-## 📞 Support & Resources
-
-- **Streamlit Docs**: https://docs.streamlit.io
-- **Pandas Docs**: https://pandas.pydata.org/docs/
-- **Scikit-learn**: https://scikit-learn.org/stable/
-- **XGBoost**: https://xgboost.readthedocs.io/
-
-## 🎉 Ready to Launch?
-
-```bash
-# Start the application
-streamlit run app.py
-
-# Navigate to http://localhost:8501
-# Enjoy! 🚀
-```
+> v2 is a rebuild. An audit of the first version found that its headline 96.5% accuracy came from target leakage. The story of finding and fixing that is in [What changed in v2](#what-changed-in-v2-and-why).
 
 ---
 
-**Made with ❤️ by AppVision Analytics Team**
+## The engagement
 
-© 2025 AppVision Analytics | All Rights Reserved
+**Client:** Osu Lane Studio *(fictional)*, a five-person indie studio in Accra with budget to build one Android app this year, choosing between three concepts: a budget tracker, an offline word puzzle and an exam-prep flashcards app.
+
+| The founder asked | Answered by |
+|---|---|
+| Which of our three concepts has the best realistic odds? | **Launch Outlook** page · notebook 03 |
+| What install number should year one be planned around? | **Launch Outlook** page · notebook 03 |
+| What do the apps that broke out in each niche have in common? | **Playbook** page · notebook 04 |
+| Once we launch, how do we tell whether we're on track? | **Benchmark** page · notebook 04 |
+
+## What the app does
+
+- **Launch Outlook:** compares up to three concepts side by side. For each, it shows "100 apps like this one" as a 10 × 10 grid shaded by install band, the chance of reaching 1K / 10K / 100K / 1M installs (as a percentage and as "about 1 in N"), how that compares with a typical app in the category, and a what-if panel (add in-app purchases, drop ads, halve the download size…).
+- **Playbook:** finds real apps whose names read like the concept within its category, then compares the ones that passed 100K installs with the ones that didn't, and lists breakouts worth studying.
+- **Benchmark:** for a live app, shows where its installs, rating volume and star rating sit among apps of the same category and age. Descriptive only, no model.
+- **How it works:** the model card, covering data, inputs, tested performance against baselines, calibration, the v1 audit and limitations. Every number on it is read from a file the notebooks write.
+
+## Results
+
+Tested on **397,435 apps from developers the model never saw in training**:
+
+| | Launch Outlook model | Category + age baseline | Always guess "under 1K" |
+|---|---|---|---|
+| Ranks a 10K+ app above one that isn't (AUC) | **0.89** | 0.71 | 0.50 |
+| Ranks a 100K+ app above one that isn't (AUC) | **0.93** | 0.75 | 0.50 |
+| Exact install band | **65%** | 57% | 57% |
+| Within one band | **93%** | 82% | 80% |
+
+Exact-band accuracy looks modest because more than half of all apps sit in the lowest band. Always guessing "under 1K" already scores 57%. That's why the app reports **odds**, not a single verdict, and why the odds were checked for calibration: when the model says 30%, about 30% of such apps got there.
+
+### Checked again five years later
+
+The test above uses the same June 2021 snapshot the model learned from. To see whether the forecasts hold up over time, re-checked 5,000 apps on Google Play in October 2026: apps that were 1–12 months old in 2021, 1,000 from each install band. Then compared where they ended up with what the model would have forecast for them in 2021 ([notebook 05](notebooks/05_out_of_time_check.ipynb)).
+
+| Apps from unseen developers, still listed in 2026 | Launch Outlook | Category + age baseline | 2021 test |
+|---|---|---|---|
+| Ranks a 10K+ app above one that isn't (AUC) | **0.86** | 0.56 | 0.89 |
+| Ranks a 100K+ app above one that isn't (AUC) | **0.87** | 0.65 | 0.93 |
+| Exact install band | **44%** | 37% | 65% |
+| Within one band | **87%** | 70% | 93% |
+
+- **The ranking held up.** Comparing concepts against each other, which is how the app is used, still works five years out. For apps still listed, the odds stayed calibrated (forecast 51% → 49% actual, 81% → 81%).
+- **Survival was the miss.** 81% of those apps had been removed from Google Play by 2026, including 46% of apps that already had 1M+ installs. Launch-time inputs didn't predict which ones. Removal ran at 74–85% across every forecast group. Every Launch Outlook number therefore means *the odds if the app stays listed and maintained*.
+
+## The answer for Osu Lane Studio
+
+| Concept | Passed 10K installs within a year (out of 100 similar apps) | Typical app in the category | Breakout rate among look-alikes (100K+) |
+|---|---|---|---|
+| **B · Offline word puzzle** | **32** | 22 | 24.5% |
+| A · Budget and expense tracker | 16 | 17 | 14.4% |
+| C · Exam-prep flashcards | 9 | 10 | 4.2% |
+
+- **Recommended concept B.** It's the only concept that beats its category average. Year one should be planned around 1,000–10,000 installs, its typical outcome, not the best case.
+- **Keep B's free + ads + in-app purchases setup.** Among comparable apps, charging $2.99 up front went with a 12% chance of 10K+ instead of 32%.
+- **Copy what the niche's breakouts had in common.** 83% offered in-app purchases (vs 52% of the rest), they were fuller downloads (about 35 MB vs 22 MB), and they kept shipping updates.
+- **On-track marker after launch:** at 6–12 months, a Word game in the top quarter has about 5,800+ installs.
+
+## What changed in v2 and why
+
+Audited the v1 models before giving the client any numbers ([notebook 02](notebooks/02_v1_audit.ipynb)):
+
+- **Found target leakage.** v1's *Rating Density* was `ratings ÷ (install bucket + 1)`, and the install bucket is the thing being predicted. Rebuilt every rated app's install bucket exactly from two model inputs (100.00% match). With only launch-time information, v1's recipe fell from 96% to 63% accuracy, and 97% of its remaining mistakes were on zero-rating apps, where the shortcut stops working.
+- **Found a training–serving mismatch.** The web app computed inputs differently from training (ratings per *day* instead of per install, star rating instead of the quality score, a fixed $2.99 price). The same real app flipped from "Emerging" (100% sure) to "Low" (99% sure) depending on which definition was used.
+- **Found the recommender matched release dates.** Min–max scaling squashed rating counts to about 0, so similarity came down to category and app age.
+- **Found biased cleaning.** Dropping every row with a blank field removed 44% of apps (mostly those without a developer website), and those apps perform worse.
+
+**Rebuilt:**
+- Cleaned the raw 2.3M-app data again, keeping every app and storing no emails or URLs ([notebook 01](notebooks/01_data_rebuild.ipynb)).
+- Trained a launch-time-only model, tested it on unseen developers and compared it with baselines ([notebook 03](notebooks/03_launch_outlook_model.ipynb)).
+- Replaced the recommender with a name-based Playbook that separates breakouts from the rest, and added percentile benchmarks ([notebook 04](notebooks/04_playbook_and_benchmarks.ipynb)).
+- Moved every feature definition into one shared package (`appvision/`) that both the notebooks and the app import, so they can't drift apart again.
+- Re-checked 5,000 of the 2021 apps on the live store in 2026 to test the forecasts out of time ([notebook 05](notebooks/05_out_of_time_check.ipynb)).
+
+## Repository layout
+
+```
+app.py                     Streamlit entry point (navigation)
+views/                     The five pages
+appvision/                 Shared code: bands, features, name signal, outlook, playbook, benchmarks, UI
+artifacts/                 Model and data files (written by notebooks 03–05, no pickles)
+notebooks/                 01 data rebuild · 02 v1 audit · 03 Launch Outlook model · 04 Playbook & benchmarks · 05 out-of-time check
+scripts/rescrape_sample.py Re-checks a sample of 2021 apps on Google Play today (feeds notebook 05)
+tests/                     Checks on the shared definitions
+```
+
+## Running it
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+To rebuild everything from scratch, download the *Google Play Store Apps* dataset (Gautham Prakash, 2.3M apps, June 2021) and set `RAW_DIR` in notebook 01. Then run notebooks 01 → 04 in order. Notebook 05 also needs `pip install google-play-scraper` and `python scripts/rescrape_sample.py --n 5000` (about 5 hours with its built-in pauses between requests).
+
+## Limits worth knowing
+
+- **2021 snapshot.** The numbers describe the shape of the market, not today's exact odds.
+- **No marketing, quality or review data.** Those explain much of what the model can't.
+- **Survivors only.** Apps removed before June 2021 are missing, and removal is common. 81% of young 2021 apps were gone five years later (notebook 05), so the odds describe apps that stay listed.
+- **Studio track record** uses earlier apps' installs as measured in 2021, which slightly flatters studios whose catalogue kept growing.
+- **Patterns, not causes.** The what-if panel and Playbook show how similar apps differed, not guaranteed effects.
+
+## Data and licence
+
+Data: [Google Play Store Apps](https://www.kaggle.com/gauthamp10/google-playstore-apps) by Gautham Prakash (MIT licence, [backup repo](https://github.com/gauthamp10/Google-Playstore-Dataset)). Code: MIT (see `LICENSE`).

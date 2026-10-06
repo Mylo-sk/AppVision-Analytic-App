@@ -226,3 +226,5 @@ Thumbs.db
 # Streamlit local caching
 .streamlit/secrets.toml
 .streamlit/cache/
+# AppVision v2: large intermediate data (rebuilt by notebooks/01_data_rebuild.ipynb)
+data/v2/
